@@ -1,0 +1,37 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  become: true
+  vars:
+    pjcode: umino/study-lean
+    githost: github.com
+    org_name: HiromiShikata
+
+
+  tasks:
+    - command: lsb_release -c -s
+      register: os_code_name
+    - command: echo hiromi #logname
+      register: user_name
+
+    - blockinfile:
+        dest: /home/{{ user_name.stdout }}/.bashrc
+        content: |
+          . $HOME/.elan/env
+
+        create: yes
+        marker: "# {{pjcode}} {mark} ANSIBLE MANAGED BLOCK"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
