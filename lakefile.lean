@@ -13,3 +13,6 @@ lean_lib «StudyLean» {
 lean_exe «study-lean» {
   root := `Main
 }
+
+require mathlib from git "https://github.com/leanprover-community/mathlib4.git"
+  
