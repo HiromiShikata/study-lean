@@ -7,7 +7,8 @@
         - https://leanprover.github.io/theorem_proving_in_lean4/
 - 平均情報量(エントロピー)、交差エントロピー、カルバック・ライブラー情報量のwikipediaからのまとめから
     - LEANで確率空間から
-        - sum
+        - [x] sum
+        - [ ] 以前証明した何かをleanでかく
         - exp
         - sigma
         - コインの裏表の期待値
