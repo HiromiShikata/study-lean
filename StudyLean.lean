@@ -33,6 +33,17 @@ def isProbabilityNonNegative (outcomes: List String) : IO Bool := do
 
 #eval isProbabilityNonNegative outcomes
 
+def isProbabilitySumOne (outcomes: List String) : IO Bool := do
+  let mut sum: Float := 0
+  for outcome in outcomes do  
+    sum := sum + (findProbability outcome)
+  if (sum != 1) then
+    return false
+  return true
+
+#eval isProbabilitySumOne outcomes >>= λ res => pure (res == true)
+#check isProbabilitySumOne outcomes >>= λ res => pure (res == true)
+合計値が1担ってなくてもエラーにならないことを修正する必要がある / throw を使うべきか試す
 
 
 -- define map, key: Char of outcomes, value: probability, Real number
