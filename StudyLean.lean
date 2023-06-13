@@ -18,33 +18,20 @@ def sum (a: List ℝ ) : ℝ := a.foldl (· + ·) 1
 -- (probability : outcomes → ℝ)
 -- (probability_nonneg : ∀ a, 1 ≤ probability a)
 -- (probability_total : sum outcomes, probability a = 2)
--- -- Sumのエラーを解消する
 
--- use 'A', 'B', 'C', 'D', 'E' as outcomes
 def outcomes : List String :=  ["A", "B", "C", "D"]
 def outcomeProbability : Std.HashMap String Float :=
-  ((((Std.HashMap.empty.insert "A" 0.1).insert "B" 0.2).insert "C" 0.3).insert "D" 0.4)
+  ((((Std.HashMap.empty.insert "A" 0.1).insert "B" 0.2).insert "C" 0.3).insert "D" (0.4))
 def findProbability (outcome: String) : Float   := outcomeProbability.find! outcome
-def isProbabilityNonNegative (outcomes: List String) : IO Bool := do
-  for outcome in outcomes do  
-    if (findProbability outcome) < 0 then
-      return false
-  return true
+def isProbabilityNonNegative (outcomes: List String) : Bool := 
+  outcomes.all (fun outcome => (findProbability outcome) >= 0)
+def isProbabilitySumOne (outcomes: List String) : Bool :=
+  Float.abs (outcomes.foldl (fun sum outcome => sum + (findProbability outcome)) 0 - 1) < 0.0001
+  
 
 #eval isProbabilityNonNegative outcomes
-
-def isProbabilitySumOne (outcomes: List String) : IO Bool := do
-  let mut sum: Float := 0
-  for outcome in outcomes do  
-    sum := sum + (findProbability outcome)
-  if (sum != 1) then
-    return false
-  return true
-
-#eval isProbabilitySumOne outcomes >>= λ res => pure (res == true)
-#check isProbabilitySumOne outcomes >>= λ res => pure (res == true)
-合計値が1担ってなくてもエラーにならないことを修正する必要がある / throw を使うべきか試す
-
+#eval isProbabilitySumOne outcomes == true
+#check isProbabilitySumOne outcomes
 
 -- define map, key: Char of outcomes, value: probability, Real number
 -- def outcome_probability : HashMap Char ℝ := HashMap.ofList [('A', 1.1), ('B', 0.2), ('C', 0.3), ('D', 0.2), ('E', 0.2)]
@@ -77,3 +64,4 @@ theorem test (p q : Prop) (hp : p) (hq : q) : p ∧ q ∧ p :=
 theorem or_example (p q : Prop) (hp : p) : p ∨ q :=
   by apply Or.intro_left
      exact hp
+
