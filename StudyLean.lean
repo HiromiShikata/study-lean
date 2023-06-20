@@ -33,8 +33,14 @@ def isProbabilitySumOne (outcomes: List String) : Bool :=
 #eval isProbabilitySumOne outcomes == true
 #check isProbabilitySumOne outcomes
 
-axiom exp が使えないか試す
--- https://chat.openai.com/share/2ac6c27b-38bf-4973-8ea5-c488c50b852c
+axiom exp : Real → Real
+axiom exp_add : ∀ (a b : Real), exp (a + b) = exp a * exp b
+
+theorem test_exp : ∀ (a : Real), exp (a + a) = exp a * exp a :=
+  fun a =>
+    let h := exp_add a a;
+    by rw [h]
+
 
 -- define map, key: Char of outcomes, value: probability, Real number
 -- def outcome_probability : HashMap Char ℝ := HashMap.ofList [('A', 1.1), ('B', 0.2), ('C', 0.3), ('D', 0.2), ('E', 0.2)]
