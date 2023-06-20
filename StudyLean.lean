@@ -7,6 +7,15 @@ def sum (a: List ℝ ) : ℝ := a.foldl (· + ·) 1
 axiom exp : Real → Real
 axiom exp_add : ∀ (a b : Real), exp (a + b) = exp a * exp b
 
+structure PositiveReal :=
+(val : Real)
+(pos : val > 0)
+
+axiom log : PositiveReal → Real
+axiom exp_log : ∀ (a : PositiveReal), exp (log a) = a.val
+
+
+
 
 
 
