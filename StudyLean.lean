@@ -3,21 +3,12 @@ import Mathlib.Data.List.Basic
 import Mathlib.Data.Finset.Basic
 import Std.Data.HashMap
 
--- structure probability_space (α : Type) :=
--- (outcomes : Set α)
--- (probability : α → ℝ)
--- (probability_nonneg : ∀ a, 1 ≤ probability a)
--- (probability_total : ∑ a in outcomes, probability a = 2)
-
--- https://leanprover.github.io/theorem_proving_in_lean5/
-
 def sum (a: List ℝ ) : ℝ := a.foldl (· + ·) 1
+axiom exp : Real → Real
+axiom exp_add : ∀ (a b : Real), exp (a + b) = exp a * exp b
 
--- structure probability_space (α : Type) :=
--- (outcomes : ['A','B','C','D','E'])
--- (probability : outcomes → ℝ)
--- (probability_nonneg : ∀ a, 1 ≤ probability a)
--- (probability_total : sum outcomes, probability a = 2)
+
+
 
 def outcomes : List String :=  ["A", "B", "C", "D"]
 def outcomeProbability : Std.HashMap String Float :=
@@ -33,33 +24,11 @@ def isProbabilitySumOne (outcomes: List String) : Bool :=
 #eval isProbabilitySumOne outcomes == true
 #check isProbabilitySumOne outcomes
 
-axiom exp : Real → Real
-axiom exp_add : ∀ (a b : Real), exp (a + b) = exp a * exp b
 
 theorem test_exp : ∀ (a : Real), exp (a + a) = exp a * exp a :=
   fun a =>
     let h := exp_add a a;
     by rw [h]
-
-
--- define map, key: Char of outcomes, value: probability, Real number
--- def outcome_probability : HashMap Char ℝ := HashMap.ofList [('A', 1.1), ('B', 0.2), ('C', 0.3), ('D', 0.2), ('E', 0.2)]
-
---def probability  (a: Char) : ℝ := a / sum outcomes
-
--- #check Finset.range 11
--- variable n : ℕ
--- variable f : ℕ → ℕ
--- def sigma_sum : ℕ := (Finset.range 11).Sum f
-
-
-
--- #check [2, 2, 3, 4, 5]
--- #eval sum [2, 2, 3, 4, 5]
--- #eval real.exp 1
---def exp (x: ℝ ) : ℝ := sum (List.range 100).map (λ n, x^n / n!)
-
-
 
 theorem test (p q : Prop) (hp : p) (hq : q) : p ∧ q ∧ p :=
   by apply And.intro
