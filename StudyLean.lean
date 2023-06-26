@@ -14,9 +14,23 @@ structure PositiveReal :=
 axiom log : PositiveReal → Real
 axiom exp_log : ∀ (a : PositiveReal), exp (log a) = a.val
 
+def multiply (a b : Real) : Real := a * b
+
+noncomputable def add_logC_to_exp (ai : Real) (C: PositiveReal) : Real := exp (ai + log C) 
+-- softmax関数の式の分母
+theorem softmax_denominator 
+  : ∀ (a : List Real) (C : PositiveReal), 
+  List.sum (List.map (fun ai => exp (ai + log C )) a )  = C.val * List.sum (List.map ( fun ai => exp ai ) a ) 
+   := 
+  sorry
 
 
+def a : List Real := [1,2,3,4,5,6,7,8,9,10]
+def C : PositiveReal := ⟨2, by linarith⟩
 
+
+#check List.sum ( List.map (fun ai => exp (ai + log C ) )  a )
+#check C.val *  List.sum ( List.map (fun ai => exp ai ) a  )
 
 
 def outcomes : List String :=  ["A", "B", "C", "D"]
