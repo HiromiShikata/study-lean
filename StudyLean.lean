@@ -3,9 +3,10 @@ import Mathlib.Data.List.Basic
 import Mathlib.Data.Finset.Basic
 import Std.Data.HashMap
 
-def sum (a: List ℝ ) : ℝ := a.foldl (· + ·) 1
+-- def sum (a: List Real ) : Real := a.foldl (· + ·) 1
 axiom exp : Real → Real
 axiom exp_add : ∀ (a b : Real), exp (a + b) = exp a * exp b
+
 
 structure PositiveReal :=
 (val : Real)
