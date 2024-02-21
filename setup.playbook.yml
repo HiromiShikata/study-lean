@@ -7,7 +7,6 @@
     githost: github.com
     org_name: HiromiShikata
 
-
   tasks:
     - command: lsb_release -c -s
       register: os_code_name
@@ -20,18 +19,4 @@
           . $HOME/.elan/env
 
         create: yes
-        marker: "# {{pjcode}} {mark} ANSIBLE MANAGED BLOCK"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        marker: '# {{pjcode}} {mark} ANSIBLE MANAGED BLOCK'
